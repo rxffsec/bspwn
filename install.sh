@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# config files mainly for "Kali Linux"
+
 backup_files(){
   files=$(find ./config/ -maxdepth 2  | sed  "s/^config\///g"|sed -r '/^\s*$/d')
   backup_directory="$HOME/_dotfiles_backup_$(date +'%Y%m%d%H%M%S/')"
@@ -10,7 +12,10 @@ backup_files(){
 }
 
 install_config(){
-sudo apt install\
+
+export DEBIAN_FRONTEND=noninteractive 
+sudo apt update -y 
+sudo apt install \
     bspwm \
     kitty \
     neovim \
@@ -34,7 +39,9 @@ sudo apt install\
     xfce4-power-manager \
     xfce4-goodies \
     xfce4 \
-    shellcheck
+    scrub \
+    shellcheck \
+    -y
 
 # global install of neovim
 sudo wget -q https://github.com/neovim/neovim/releases/latest/download/nvim-linux64.tar.gz -O /dev/shm/nvim-linux64.tar.gz
@@ -51,8 +58,12 @@ sudo unzip /dev/shm/FiraCode.zip -d /usr/share/fonts/FiraCode
 sudo cp -rv "$(pwd)/icons" "/usr/share/"
 sudo cp -rv "$(pwd)/themes" "/usr/share/"
 
-# local user condig install 
+# local user config install 
 cp -rv "$(pwd)/config/*" "$HOME"
+
+#cleanup
+sudo rm -rf 
+
 }
 
 if [ "$EUID" -eq 0 ]; then
