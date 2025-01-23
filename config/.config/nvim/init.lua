@@ -25,6 +25,10 @@ require("lazy").setup({
   { import = "plugins" },
 }, lazy_config)
 
+
+require("cmp").setup(opts)
+require('cmp').setup { enabled = false }
+
 -- load theme
 dofile(vim.g.base46_cache .. "defaults")
 dofile(vim.g.base46_cache .. "statusline")
